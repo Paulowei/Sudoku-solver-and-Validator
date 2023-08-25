@@ -12,8 +12,8 @@ Maven 3.0.0 version is supported ;
 - change directories  to the root directory of the project ;
 -compile the project with the following  command  ;
 -mvn  clean compile  ;
--Package the project to a Jar file with the following command ;
--Mvn package
+-Package the project to a Jar file with the following command 
+-Mvn package ;
 
   -Change directories  to the target folder  ; 
 -Run the  jar file  with the following command to validate a puzzle ;
