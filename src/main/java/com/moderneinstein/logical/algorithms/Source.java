@@ -51,13 +51,18 @@ public class  Source
     public static Object validate(Object grace ){
 	int[][]  arrays  =   (int[][])grace ; 
         char[][] energy =  Utility.revert(arrays) ;
-        outer.append(Arrays.toString(energy)).append(space) ;  ; 
-        if(Validator.isValidSudoku(energy)){
+        outer.append(Arrays.deepToString(energy)).append(space) ;  
+        outer.print(lines) ; 
+        boolean states =  Validator.isValidSudoku (energy) ;  
+        outer.print(states) ; 
+        outer.print(lines) ; 
+      return   Boolean.valueOf(states) ; 
+    }
+    /**  if(Validator.isValidSudoku(energy)){
             return Boolean.valueOf(true) ; 
         } else{
             return Boolean.valueOf(false) ; 
-        }
-    }
+        } */
     public static Object  readTerminal(Object bytes) { 	
 	try{
 	 String input =  (String)bytes ;
