@@ -6,7 +6,8 @@ package com.moderneinstein.logical.algorithms ;
  */
 
  import  java.util.Arrays ; 
- import java.lang.reflect.Array ; 
+ import java.lang.reflect.Array ;
+import java.nio.Buffer;
 import java.io.PrintStream ; 
 import  java.util.ArrayList ; 
 import java.util.LinkedList  ;
@@ -21,6 +22,7 @@ import  java.util.TreeMap ;
 import java.util.function.Function ; 
 import java.io.File  ;
  import java.util.List ;
+import java.util.HashMap ; 
 
 public class  Source 
 {
@@ -34,6 +36,10 @@ public class  Source
     public  static String[] marks =  new String[]{"File","Terminal","Validate","Solve"} ; 
     public  static Function<Object,Object>[] functions = 
      new Function[]{Source::readFile,Source::readTerminal,Source::validate,Source::solve}  ;  
+     private static Map<String,Function<String[],Object>> mapper    ;
+    private static String[] buffer =  new String[]{"Validate","Solve","Generate"} ;   
+    // <String[],Object>
+    private static Function<String[],Object>[]  services = new Function[]{(Function<String[],Object>)Source::validatePuzzle,(Function<String[],Object>)Source::solvePuzzle,(Function<String[],Object>)Source::generatePuzzle} ;
     public  static PrintStream outer = System.out ; 
     public static  char  verse = '.'  ;
     public static  Object solve(Object nests){ 
@@ -57,6 +63,11 @@ public class  Source
         outer.print(states) ; 
         outer.print(lines) ; 
       return   Boolean.valueOf(states) ; 
+    }  
+    public static Object  generate(Object source){
+        int[][] lines  = (int[][])source  ; 
+     
+        return lines ;  
     }
     /**  if(Validator.isValidSudoku(energy)){
             return Boolean.valueOf(true) ; 
@@ -93,6 +104,11 @@ public class  Source
             Function<Object,Object>  function = functions[rc] ; 
             String words = marks[rc] ; 
             articles.put(words,function) ; 
+        }  
+        for(int cs=0;cs<buffer.length;cs++){
+            Function<String[],Object> functVal =services[cs] ;
+             String types = buffer[ cs] ;  
+            mapper.put(types,functVal) ;
         }
     }
     public static Object parseArgs(String[] args){
@@ -106,13 +122,44 @@ public class  Source
         return operand ; 
     }
 
-
-
+    public static Object solvePuzzle(String[] args){
+         String first = args[0] ;   
+         Function<Object,Object> funct4 = articles.get( first) ;   
+        Object object4 = funct4.apply(args[1]) ;   
+        String straps =  (String)object4 ; 
+        List<List<Integer>> nested =  Utility.convert(straps,verse,comma) ;   
+        int[][] lines = Utility.convert(nested) ; 
+        Solver.solvePuzzle(lines) ;   
+        System.out.println(Arrays.deepToString(lines)) ; 
+         return lines ;      
+    } 
+    public static  Object validatePuzzle(String[] args){
+        Object object5 = parseArgs (args) ; 
+        String straps =  (String)object5  ;   
+        List<List<Integer>> listed =   Utility.convert(straps,verse,comma) ; 
+        int[][] lanes = Utility.convert(listed)  ;  
+        Boolean cases = Validator.isValidPuzzle(lanes)  ;   
+        return cases ; 
+    }
+    public static Object generatePuzzle(String[] args){
+      Object object3 =  parseArgs(args ) ; 
+    String words =   (String)object3 ; 
+     List<String> serial = new ArrayList<String>() ; 
+    Utility.split(words,serial,':') ;
+     Integer  spans =    Integer.parseInt(serial.get(0)) ; 
+     Integer voids = Integer.parseInt(serial.get(1)) ;  
+  //   System.out.println(404) ; 
+      int[][] yields =  Generator.dedicate(spans,voids) ; // Generator.create(spans,voids) ; // Generator.generate( spans, voids) ;    
+     System.out.println (Arrays.deepToString(yields)) ; 
+    //  object3 = yields ;         
+      return  yields ;  // object3 ; 
+    }
     public static void main( String[] args ) throws Exception {
       //  System.out.println( "Hello World!" );
-    articles = new TreeMap<String,Function<Object,Object>>() ;
+    articles = new TreeMap<String,Function<Object,Object>>() ;  
+    mapper = new HashMap<String,Function<String[],Object>>() ; 
     configure() ; 
-    Object  crest = parseArgs(args) ; 
+  /*  Object  crest = parseArgs(args) ; 
     String determine = (String)(crest ) ;
   //  outer.println(determine) ;
    List<List<Integer>> serial = Utility.convert(determine,verse,comma) ; 
@@ -122,7 +169,13 @@ public class  Source
 	//outer.println(determine) ; 
     int[][] chunks = Utility.convert(serial) ; 
     Function<Object,Object> quests =  articles.get(args[2]) ; 
-    Object result =  quests.apply(chunks) ; 
-    // outer.println( result.toString()) ;  
+    Object result =  quests.apply(chunks) ;  */
+    // outer.println( result.toString()) ;    
+    if(args.length<=2){return  ; } 
+     String pattern = args[2] ;  
+  //   System.out.println(pattern) ; 
+     Function<String[],Object> present =  mapper.get(pattern) ; 
+     Object object6 = present.apply(args) ; 
+    System.out.println(object6) ; 
      }
 }

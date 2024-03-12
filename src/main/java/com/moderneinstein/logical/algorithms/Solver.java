@@ -123,7 +123,7 @@ public class  Solver {
             }
         }
     }
-    public static void solveSudoku(char[][] board) {
+    public static boolean solveSudoku(char[][] board) {
         serial = new ArrayList<Integer>( ) ; 
         store = new TreeMap<Integer,boolean[]>() ;
         int range = board[0 ].length ; 
@@ -139,18 +139,19 @@ public class  Solver {
         insert(serial,board ) ; 
         boolean states = append(0,serial,board) ;  
        // System.out.println (Arrays.deepToString(board)) ; 
-        return ; 
+        return  states ; 
     }
-    public static void solvePuzzle(int[][] source) {
+    public static boolean  solvePuzzle(int[][] source) {
          int brace = source.length ; 
          char[][]   crest =  new char[brace][brace] ; 
          crest =  Utility.revert(source) ; 
-        solveSudoku(crest) ; 
+        boolean cases =   solveSudoku(crest) ; 
         for(int fc=brace-1 ;fc>=0;fc--){
             for(int er=brace-1;er>=0;er--){
                 int notes =  convert(crest[er][fc]) ; 
                 source[er][fc] = notes ; 
             }
-        }
+        }   
+        return cases  ; 
     }
 }

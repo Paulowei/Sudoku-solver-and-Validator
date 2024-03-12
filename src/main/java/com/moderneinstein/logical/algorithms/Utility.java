@@ -11,13 +11,15 @@ import java.io.InputStream ;
 import java.io.BufferedReader; 
 import java.io.InputStreamReader ; 
  import java.io.IOException ; 
+import java.util.Random ; 
+import java.util.Iterator ; 
 
 
 public class Utility {
     
     public static  int share = 48 ;
     public static int  zeros = 0 ; 
-    public static char dots = '.' ; 
+    public static char dots = '.' ;   
     public static void  split(String element,List<String> collect,char delim){
         int south = 0 ; 
         int north = 0 ;
@@ -101,5 +103,60 @@ public class Utility {
             collate = collate.concat(portion) ; 
         }  
         return collate ; 
+    }   
+    public static Vector<int[]> correlate(int below,int higher,int width,int height){
+        Vector<int[]> listed =new Vector<int[]>() ; 
+        Random random = new Random(System.nanoTime()) ; 
+        for(int cs=0;cs<height;cs++){
+            int[] lanes = new int[width] ; 
+            for(int dx=0;dx<width;dx++){
+                lanes[dx]=  random.nextInt(below,higher) ; 
+            }  
+            listed.add( lanes) ; 
+        }  
+        return listed ; 
+    } 
+    public static int[][] replicate(int[][] source){ 
+        int spread = source[0].length  ; 
+        int spans = source.length ;  
+        int[][] clone = new int[spans][spread] ;  
+        for(int dy=spans-1;dy>=0;dy--){
+            for(int dx=spread-1; dx>=0;dx--){
+                clone[dy][dx] =  source[dy][dx] ; 
+            }
+        } 
+        return clone  ; 
+    } 
+    public static <T> List<T>  resolve(int amount,List<T> input){
+       List<T> created =new ArrayList<T>()   ;  
+        Random spawner = new Random(System.currentTimeMillis()) ; 
+         int  sigma = 1 ; 
+        while(sigma<=amount){
+            int point =  spawner.nextInt(0,input.size())  ; 
+            T temps = input.get(point) ;
+            input.set(point,input.get(input.size()-1)) ; 
+            input.set (input.size()-1,temps)  ;
+            input.remove(input.size()-1) ; 
+            created.add(temps) ;   
+            sigma = sigma + 1 ; 
+        } 
+        return created  ; 
+    }    
+    public static int[]  linearize( int lower,int upper){
+        int[] lanes = new int[upper-lower+1] ;  
+        for(int cs=lower;cs<=upper;cs++){
+             lanes[cs-lower] = cs ; 
+        } 
+        return  lanes ; 
     }
-}
+    public static void shuffle(int times,int[] input){
+        Vector<int[]> swaps  =  correlate(0,input.length-1,2,input.length) ;
+        Iterator<int[]> dynamics =  swaps .iterator(); 
+        while(dynamics.hasNext( )){
+            int[] types =  dynamics.next() ; 
+            int value = input[types[1]]  ;
+            input[types[1]] = input[types[0]] ;
+            input[types[0]] = value ;  
+        } 
+    }
+}   

@@ -1,0 +1,7 @@
+Main-Class: com.moderneinstein.logical.algorithms.Source 
+Specification-Title: Sudoku Algorithms 
+Specification-Vendor: Paul Owei 
+Specification-Version: 2.4 
+Implementation-Title:  Sudoku Algorithms 
+Implementation-Vendor: Paul Owei 
+Implementation-Version: 2.4  

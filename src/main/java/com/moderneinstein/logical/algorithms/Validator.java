@@ -21,7 +21,7 @@ public class Validator {
 
     public static int convert(char current){
          int present = (int)(current) ; 
-         if(present==dots){return nulls ; }
+         if(current==dots){return nulls ; }
       //     System.out.println(present); 
         present = present-shift ; 
         //  System.out.println(current); 
@@ -29,7 +29,7 @@ public class Validator {
     }
     public static char revert(int current){
         int above = (current+shift) ;
-        if(current==shift){return dots ; }
+        if(current==nulls){return dots ; }
         char places = (char)above ;
         return places ;   
     }
